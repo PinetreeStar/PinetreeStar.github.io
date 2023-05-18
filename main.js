@@ -38,6 +38,7 @@ function loginVal () {
     xhttp.onload = function() {
         //Receives a string from LoginPHP.php with either an error message or the data requested
         const returned = this.responseText.split('|');
+        console.log(returned);
         if (returned[0] == "TRUE"){
             //Hides the login form and presents checkboxes
             document.getElementById("loginFormSection").style.display = "none";
