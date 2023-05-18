@@ -57,7 +57,7 @@ function loginVal () {
             '<section id="timeList"><header>Time</header><p><b>Warning!<br>Times above 24 hours will lag the site badly</b></p>'+timeOptions.map(createTimeBox).join('')+'</section>');
             document.getElementById("failure").innerHTML = "";
         }else{
-            document.getElementById("failure").innerHTML = returned[1];
+            document.getElementById("failure").innerHTML = returned;
             stopLogin = false;
         }
     }
