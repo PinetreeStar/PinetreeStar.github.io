@@ -5,4 +5,16 @@ body {
 
 #Status {
 	text-align: center;
+	height: 50%;
+	width: 90%;
+}
+
+.Hidden {
+	opacity: 0;
+}
+
+#Celebration {
+	text-align: center;
+	height: 90%;
+	width: 90%;
 }
