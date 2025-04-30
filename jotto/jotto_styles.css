@@ -1,0 +1,10 @@
+body {
+	display: grid;
+	background-color: #1ab6ff;
+}
+
+#celebration {
+	text-align: center;
+	height: 90%;
+	width: 90%;
+}
