@@ -3,17 +3,17 @@ body {
 	background-color: #1ab6ff;
 }
 
-#Status {
+#status {
 	text-align: center;
 	height: 50%;
 	width: 90%;
 }
 
-.Hidden {
+.hidden {
 	opacity: 0;
 }
 
-#Celebration {
+#celebration {
 	text-align: center;
 	height: 90%;
 	width: 90%;
