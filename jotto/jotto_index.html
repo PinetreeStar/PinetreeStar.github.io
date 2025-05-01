@@ -9,8 +9,21 @@
 	<title id="title">Jotto!</title>
 </head>
 <body>
-    <div id="celebration">
-        <p style="font-size:large;">Found Me!</p>
-    </div>
+	<div>
+		<h2>I have a secret five letter word, let's see if you can figure it out</h2>
+	</div>
+	<div class="error">
+		<h3 id="errorMessage"></h3>
+	</div>
+    <div>
+		<label for="guess">Guess a word</label>
+		<input type="text" id="guess" name="guess" maxlength="5" size="5">
+	</div>
+	<div id="guesses"></div>
+	<div>
+		<h4>Use these letters to help remember information</h4>
+	</div>
+	<div id="alphabet">
+	</div>
 </body>
 </html>
