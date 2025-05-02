@@ -12,7 +12,7 @@ xhttp.send();
 
 document.addEventListener("keypress", function(event) {
     if ((event.key == "Enter") && guessing){
-        makeAGuess(document.getElementById("guess").value);
+        makeAGuess(document.getElementById("guess").value.toLowerCase());
     }
 });
 
@@ -35,7 +35,7 @@ function binarySearch(target){
         }
         m = Math.floor((l + r) / 2);
     }
-    return false;
+    return ((target == words[l]) || (target == words[r])) ? true : false;
 }
 
 function makeAGuess(target){
@@ -62,7 +62,7 @@ function makeAGuess(target){
     }else{
         document.getElementById("guess").value = "";
         document.getElementById("errorMessage").innerHTML = "";
-        document.getElementById("guesses").insertAdjacentHTML("beforeend", `<p>${target}: ${ret}</p>`);
+        document.getElementById("guesses").insertAdjacentHTML("afterbegin", `<p>${target}: ${ret}</p>`);
     }
     return ret;
 }

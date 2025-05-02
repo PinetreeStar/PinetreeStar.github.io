@@ -10,20 +10,22 @@
 </head>
 <body>
 	<div>
-		<h2>I have a secret five letter word, let's see if you can figure it out</h2>
+		<span><b>I have a secret five letter word, let's see if you can figure it out</b></span>
 	</div>
 	<div class="error">
-		<h3 id="errorMessage"></h3>
+		<span id="errorMessage" style="font-style: bold;"></span>
 	</div>
     <div>
 		<label for="guess">Guess a word</label>
 		<input type="text" id="guess" name="guess" maxlength="5" size="5">
 	</div>
 	<div id="guesses"></div>
-	<div>
-		<h4>Use these letters to help remember information</h4>
-	</div>
-	<div id="alphabet">
+	<div id="bottom" style="position:fixed; bottom: 0; right: 0; left: 0;">
+		<div>
+			<span>Use these letters to help remember information</span>
+		</div>
+		<div id="alphabet">
+		</div>
 	</div>
 </body>
 </html>
