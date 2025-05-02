@@ -1,19 +1,14 @@
-:root {
-	--main-height: vh;
-	--guesses-height: calc(var(--main-height) - 120px);
-}
-
 body {
 	display: grid;
 	background-color: #1ab6ff;
 	grid-template-rows: 40px 20px 24px;
-	/* overflow: hidden; */
+	overflow: hidden;
 }
 
 #guesses {
 	overflow: auto;
 	width: 20vw;
-	max-height:var(--guesses-height);
+	height: 70vh;
 }
 
 #alphabet {
