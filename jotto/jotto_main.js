@@ -12,7 +12,7 @@ xhttp.send();
 
 document.addEventListener("keypress", function(event) {
     if ((event.key == "Enter") && guessing){
-        makeAGuess(document.getElementById("guess").value.toLowerCase());
+        makeAGuess();
     }
 });
 
@@ -38,7 +38,9 @@ function binarySearch(target){
     return ((target == words[l]) || (target == words[r])) ? true : false;
 }
 
-function makeAGuess(target){
+function makeAGuess(){
+    if (!guessing){return}
+    const target = document.getElementById("guess").value.toLowerCase();
     let tempWord = secretWord;
     if (target.length != 5){
         document.getElementById("errorMessage").innerHTML = "Must guess a five letter word";
@@ -59,6 +61,7 @@ function makeAGuess(target){
         document.getElementById("guess").value = "";
         document.getElementById("errorMessage").innerHTML = "Congratulations on figuring out the word!";
         guessing = false;
+        document.getElementById("enterGuess").removeEventListener("click", makeAGuess(document.getElementById("guess").value.toLowerCase()));
     }else{
         document.getElementById("guess").value = "";
         document.getElementById("errorMessage").innerHTML = "";

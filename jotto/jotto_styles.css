@@ -1,14 +1,21 @@
+:root {
+	--main-height: calc(100vh - 207px);
+}
+
 body {
 	display: grid;
 	background-color: #1ab6ff;
-	grid-template-rows: 40px 20px 24px;
 	overflow: hidden;
+	grid-template-rows: 55px 38px 42px var(--main-height) 54px;
+}
+
+body > div {
+	margin: 10px;
 }
 
 #guesses {
 	overflow: auto;
 	width: 20vw;
-	height: 70vh;
 }
 
 #alphabet {

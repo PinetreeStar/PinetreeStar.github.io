@@ -13,16 +13,17 @@
 		<span><b>I have a secret five letter word, let's see if you can figure it out</b></span>
 	</div>
 	<div class="error">
-		<span id="errorMessage" style="font-style: bold;"></span>
+		<span id="errorMessage"></span>
 	</div>
     <div>
-		<label for="guess">Guess a word</label>
+		<label for="guess">Guess a word:</label>
 		<input type="text" id="guess" name="guess" maxlength="5" size="5">
+		<button onclick="makeAGuess()">Enter</button>
 	</div>
 	<div id="guesses"></div>
 	<div id="bottom" style="position:fixed; bottom: 0; right: 0; left: 0;">
-		<div>
-			<span>Use these letters to help remember information</span>
+		<div style="display:flex; justify-content: center;">
+			<span>Use these letters to help remember information, click on a letter to cross/uncross it</span>
 		</div>
 		<div id="alphabet">
 		</div>
