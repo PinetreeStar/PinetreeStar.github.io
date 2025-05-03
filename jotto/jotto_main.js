@@ -17,7 +17,7 @@ document.addEventListener("keypress", function(event) {
 });
 
 for (let i = 0; i < 26; i ++){
-    document.getElementById("alphabet").insertAdjacentHTML("beforeend", `<span onclick="cross(this)">${String.fromCharCode(i + 65)}</span>`);
+    document.getElementById("alphabet").insertAdjacentHTML("beforeend", `<span id="letter_${String.fromCharCode(i + 65)}" onclick="cross('${String.fromCharCode(i + 97)}')">${String.fromCharCode(i + 65)}</span>`);
 }
 
 function binarySearch(target){
@@ -44,36 +44,57 @@ function makeAGuess(){
     let tempWord = secretWord;
     if (target.length != 5){
         document.getElementById("errorMessage").innerHTML = "Must guess a five letter word";
-        return -1;
+        return;
     }
     if (!binarySearch(target)){
         document.getElementById("errorMessage").innerHTML = "Word not found, please try a valid English word";
-        return -1;
+        return;
     }
-    let ret = 0;
+    document.getElementById("guess").value = "";
+    let letters = 0;
+    let toHTML = `<div><span style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;justify-items:center;width:60px">`;
     for (i in target){
         if (tempWord.includes(target[i])){
-            ret ++;
+            letters ++;
             tempWord = tempWord.replace(target[i],"");
         }
+        toHTML += `<span onclick="cross('${target[i]}')">`;
+        if (document.getElementById("letter_" + target[i].toUpperCase()).innerHTML.includes("<del>")){
+            toHTML += `<del>${target[i]}</del>`;
+        }else{
+            toHTML += target[i];
+        }
+        toHTML += "</span>";
     }
-    if (ret == 5){
-        document.getElementById("guess").value = "";
-        document.getElementById("errorMessage").innerHTML = "Congratulations on figuring out the word!";
+    document.getElementById("guessBody").insertAdjacentHTML("afterbegin", toHTML + `</span><span>${letters}</span></div>`);
+    if (letters == 5){
         guessing = false;
-        document.getElementById("enterGuess").removeEventListener("click", makeAGuess(document.getElementById("guess").value.toLowerCase()));
+        document.getElementById("errorMessage").innerHTML = "Congratulations on figuring out the word!";
     }else{
-        document.getElementById("guess").value = "";
         document.getElementById("errorMessage").innerHTML = "";
-        document.getElementById("guesses").insertAdjacentHTML("afterbegin", `<p>${target}: ${ret}</p>`);
     }
-    return ret;
 }
 
-function cross(element){
-    if (element.innerHTML.includes("<del>")){
-        element.innerHTML = element.innerHTML.substring((element.innerHTML.indexOf("</del>")-1), element.innerHTML.indexOf("</del>"));
+function cross(letter){
+    //Go through all guesses and finish with the alphabet, crossing/uncrossing as needed
+    const alpha = document.getElementById(`letter_${letter.toUpperCase()}`);
+    if (alpha.innerHTML.includes("<del>")){
+        alpha.innerHTML = letter.toUpperCase();
     }else{
-        element.innerHTML = `<del>${element.innerHTML}</del>`;
+        alpha.innerHTML = `<del>${letter.toUpperCase()}</del>`;
     }
+
+    document.getElementById("guessBody").childNodes.forEach(function(node){
+        node.childNodes[0].childNodes.forEach(function(char){
+            if (char.innerHTML.includes("<del>")){
+                if (char.innerHTML.includes(`>${letter}<`)){
+                    char.innerHTML = letter;
+                }
+            }else{
+                if (char.innerHTML == letter){
+                    char.innerHTML = `<del>${letter}</del>`;
+                }
+            }
+        });
+    });
 }

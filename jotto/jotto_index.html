@@ -20,10 +20,13 @@
 		<input type="text" id="guess" name="guess" maxlength="5" size="5">
 		<button onclick="makeAGuess()">Enter</button>
 	</div>
-	<div id="guesses"></div>
+	<div id="guesses">
+		<div id="guessHead" style="display:flex; justify-content: space-between;"><span>Guess</span><span>Response</span></div>
+		<div id="guessBody"></div>
+	</div>
 	<div id="bottom" style="position:fixed; bottom: 0; right: 0; left: 0;">
 		<div style="display:flex; justify-content: center;">
-			<span>Use these letters to help remember information, click on a letter to cross/uncross it</span>
+			<span>Use these letters to help remember information, click on a letter in this alphabet or in your guesses to cross/uncross it</span>
 		</div>
 		<div id="alphabet">
 		</div>
