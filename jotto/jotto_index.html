@@ -8,9 +8,17 @@
 	<script type="text/javascript" src="jotto_main.js" defer></script>
 	<title id="title">Jotto!</title>
 </head>
+<div id="modal">
+	<div id="modal-content">
+		<span id="close" onclick="closeModal()">&times;</span>
+		<h2>How to Play Jotto</h2>
+		<p>Like Wordle, the object is to correctly guess a five letter word. Here, you must guess a five letter word and you are only told how many letter your guess has in common with the secret word</p>
+		<p>Note: Anagrams always felt a little unfair to me, so as long as one of your guesses has all five letters in common with the secret word you'll win</p>
+	</div>
+</div>
 <body>
 	<div>
-		<span><b>I have a secret five letter word, let's see if you can figure it out</b></span>
+		<span><b>I have a secret five letter word, let's see if you can figure it out</b><button onclick="openModal()">How to Play</button></span>
 	</div>
 	<div class="error">
 		<span id="errorMessage"></span>
@@ -21,12 +29,11 @@
 		<button onclick="makeAGuess()">Enter</button>
 	</div>
 	<div id="guesses">
-		<div id="guessHead" style="display:flex; justify-content: space-between;"><span>Guess</span><span>Response</span></div>
 		<div id="guessBody"></div>
 	</div>
 	<div id="bottom" style="position:fixed; bottom: 0; right: 0; left: 0;">
 		<div style="display:flex; justify-content: center;">
-			<span>Use these letters to help remember information, click on a letter in this alphabet or in your guesses to cross/uncross it</span>
+			<span>Use these letters to help remember information, click on a letter in this alphabet or in your guesses to change it's color</span>
 		</div>
 		<div id="alphabet">
 		</div>
