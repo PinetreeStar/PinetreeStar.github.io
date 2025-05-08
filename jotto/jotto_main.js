@@ -20,16 +20,6 @@ for (let i = 0; i < 26; i ++){
     document.getElementById("alphabet").insertAdjacentHTML("beforeend", `<span id="letter_${String.fromCharCode(i + 65)}" onclick="cross('${String.fromCharCode(i + 97)}')">${String.fromCharCode(i + 65)}</span>`);
 }
 
-function openModal(){document.getElementById("modal").style.display = "block"}
-
-function closeModal(){document.getElementById("modal").style.display = "none"}
-
-window.onclick = function(event) {
-    if (event.target == document.getElementById("modal")){
-        document.getElementById("modal").style.display = "none";
-    }
-}
-
 function binarySearch(target){
     let l = 0;
     let r = words.length-1;

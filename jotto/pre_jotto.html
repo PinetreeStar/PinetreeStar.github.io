@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../modal.css">
+	<script type="text/javascript" src="../modal.js" defer></script>
+	<title id="title">Jotto!</title>
+</head>
+<body style="height:calc(100vh - 16px);width:calc(100vw - 16px);background-color: #16a2e2;">
+    <div style="display:flex;height:inherit;justify-content:center;align-items:center;">
+        <div style="display:grid;height:40vh;width:40vh;background-color:white;grid-template-columns: 1fr 1fr;grid-template-rows: 1fr 1fr;align-items:center;">
+            <div style="grid-column-start:1;grid-column-end:3;justify-items:center;">
+                <p>Welcome to Jotto!</p>
+                <p>Choose a mode</p>
+            </div>
+            <div style="display:grid;justify-items:center;">
+                <button>Daily word</button>
+                <p>Chosen daily from a hand-picked list</p>
+            </div>
+            <div style="display:grid;justify-items:center;">
+                <button>Random word</button>
+                <p>Chooses <i>any</i> valid English word</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
