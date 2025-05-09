@@ -1,3 +1,5 @@
+import { binarySearch, rand, setCookie, getCookie } from '../fxns.js';
+
 const xhttp = new XMLHttpRequest();
 let words;
 let secretWord;
@@ -5,13 +7,16 @@ let guessing = true;
 xhttp.onload = function() {
     words = this.responseText.split('\n');
     //Helper fxns are outside this "onload", anything requiring 'words' to have data must be inside
+    setCookie("test","here!");
+    setCookie("test2","here2!");
+    console.log("Here: " + getCookie("test2"));
     secretWord = "sauce";
 }
 xhttp.open("GET","jotto_words.txt");
 xhttp.send();
 
 document.addEventListener("keypress", function(event) {
-    if ((event.key == "Enter") && guessing){
+    if (guessing && (event.key == "Enter")){
         makeAGuess();
     }
 });
@@ -20,22 +25,15 @@ for (let i = 0; i < 26; i ++){
     document.getElementById("alphabet").insertAdjacentHTML("beforeend", `<span id="letter_${String.fromCharCode(i + 65)}" onclick="cross('${String.fromCharCode(i + 97)}')">${String.fromCharCode(i + 65)}</span>`);
 }
 
-function binarySearch(target){
-    let l = 0;
-    let r = words.length-1;
-    let m = Math.floor((l + r) / 2);
-    while (l < r){
-        if (target == words[m]){
-            return true;
-        }
-        if (target < words[m]){
-            r = m-1;
-        }else{
-            l = m+1;
-        }
-        m = Math.floor((l + r) / 2);
+function randomWord(type){
+    let i;
+    let dailyWord; //Find daily word
+    if (type == "daily"){
+        i = dailyWord;
+    }else{
+        i = rand(0,words.length);
     }
-    return ((target == words[l]) || (target == words[r])) ? true : false;
+    secretWord = words[i];
 }
 
 function makeAGuess(){
@@ -46,7 +44,7 @@ function makeAGuess(){
         document.getElementById("errorMessage").innerHTML = "Must guess a five letter word";
         return;
     }
-    if (!binarySearch(target)){
+    if (binarySearch(words, target) == -1){
         document.getElementById("errorMessage").innerHTML = "Word not found, please try a valid English word";
         return;
     }

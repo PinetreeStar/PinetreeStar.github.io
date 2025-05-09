@@ -6,21 +6,38 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="jotto_styles.css">
 	<link rel="stylesheet" href="../modal.css">
-	<script type="text/javascript" src="jotto_main.js" defer></script>
+	<script type="module" src="jotto_main.js" defer></script>
 	<script type="text/javascript" src="../modal.js" defer></script>
 	<title id="title">Jotto!</title>
 </head>
-<div class="modal" id="modal">
+<div class="spec-modal" id="spec-modal">
+	<div class="modal-content" style="justify-items: center;">
+		<h2>Welcome to Jotto!</h2>
+		<p>Like Wordle, the object is to correctly guess a five letter word. Here, you must guess a five letter word and you are only told how many letters your guess has in common with the secret word</p>
+		<p>Anagrams always felt a little unfair to me, so as long as one of your guesses has all five letters in common with the secret word you'll win</p>
+		<div id="buttons" style="display:flex">
+			<div style="display:grid;justify-items:center;padding:10px">
+				<button onclick="chooseWord('daily')">Daily Word</button>
+				<span>Chosen from a hand-picked list, resets at midnight EST</span>
+			</div>
+			<div style="display:grid;justify-items:center;padding:10px">
+				<button onclick="chooseWord('random')">Random Word</button>
+				<span>Over 10,000 options, any valid English word could be picked</span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal" id="htp-modal" style="display: none;">
 	<div class="modal-content">
-		<span class="modal-close" onclick="closeModal('modal')">&times;</span>
+		<span class="modal-close" onclick="closeModal('htp-modal')">&times;</span>
 		<h2>How to Play Jotto</h2>
 		<p>Like Wordle, the object is to correctly guess a five letter word. Here, you must guess a five letter word and you are only told how many letters your guess has in common with the secret word</p>
-		<p>Note: Anagrams always felt a little unfair to me, so as long as one of your guesses has all five letters in common with the secret word you'll win</p>
+		<p>Anagrams always felt a little unfair to me, so as long as one of your guesses has all five letters in common with the secret word you'll win</p>
 	</div>
 </div>
 <body>
 	<div>
-		<span><b>I have a secret five letter word, let's see if you can figure it out</b><button onclick="openModal('modal')">How to Play</button></span>
+		<span><b>I have a secret five letter word, let's see if you can figure it out</b><button onclick="openModal('htp-modal')">How to Play</button></span>
 	</div>
 	<div class="error">
 		<span id="errorMessage"></span>
