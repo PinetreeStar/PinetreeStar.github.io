@@ -1,4 +1,4 @@
-export function binarySearch(arr, target){
+function binarySearch(arr, target){
     let l = 0;
     let r = arr.length-1;
     let m = Math.floor((l + r) / 2);
@@ -19,17 +19,20 @@ export function binarySearch(arr, target){
     return (target == arr[r]) ? r : -1;
 }
 
-export function rand(min, max){
+function rand(min, max, includeMax = false){
+    if (includeMax){
+        return Math.floor(Math.rand() * ((max - min) + 1)) + min;
+    }
     return Math.floor(Math.rand() * (max - min)) + min;
 }
 
-export function setCookie(cname, cvalue, expire = 30){
+function setCookie(cname, cvalue, expire = 30){
     let d = new Date();
     d.setTime(d.getTime() + (expire * 1000 * 60 * 60 * 24));
     document.cookie = (cname + "=" + cvalue + ";expires=" + d.toUTCString + ";path=/");
 }
 
-export function getCookie(cname){
+function getCookie(cname){
     cname += "=";
     let decoded = document.cookie.split(";");
     for (let i in decoded){
@@ -40,5 +43,5 @@ export function getCookie(cname){
             return decoded[i].substring(cname.length);
         }
     }
-    return "";
+    return "No cookie found";
 }

@@ -1,18 +1,30 @@
-import { binarySearch, rand, setCookie, getCookie } from '../fxns.js';
-
-const xhttp = new XMLHttpRequest();
+const daysInMonth = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+const dateObj = new Date();
+dateObj.setHours(dateObj.getUTCHours()-4);
+let xhttp = new XMLHttpRequest();
 let words;
+let dailyWords;
 let secretWord;
 let guessing = true;
 xhttp.onload = function() {
     words = this.responseText.split('\n');
     //Helper fxns are outside this "onload", anything requiring 'words' to have data must be inside
-    setCookie("test","here!");
-    setCookie("test2","here2!");
-    console.log("Here: " + getCookie("test2"));
-    secretWord = "sauce";
 }
 xhttp.open("GET","jotto_words.txt");
+xhttp.send();
+
+xhttp = new XMLHttpRequest();
+xhttp.onload = function() {
+    dailyWords = this.responseText.split('\n');
+    if (dailyWords.length < 365){
+        for (let i = 2; i < 365; i ++){
+            dailyWords.push(rand(0, 10000, true).toString());
+        }
+        //306 is for May 11th
+        dailyWords[306] = '7934';
+    }
+}
+xhttp.open("GET","daily_words.txt");
 xhttp.send();
 
 document.addEventListener("keypress", function(event) {
@@ -25,15 +37,19 @@ for (let i = 0; i < 26; i ++){
     document.getElementById("alphabet").insertAdjacentHTML("beforeend", `<span id="letter_${String.fromCharCode(i + 65)}" onclick="cross('${String.fromCharCode(i + 97)}')">${String.fromCharCode(i + 65)}</span>`);
 }
 
-function randomWord(type){
-    let i;
-    let dailyWord; //Find daily word
-    if (type == "daily"){
-        i = dailyWord;
-    }else{
-        i = rand(0,words.length);
+function chooseWord(type){
+    let i = (daysInMonth[dateObj.getMonth()] + dateObj.getDate()) - 190;
+    if (i < 0){
+        i += 365;
+    }
+    i = dailyWords[i];
+    if (type == "random"){
+        let temp = rand(0, words.length);
+        i = (temp == i) ? ((temp * 17) % words.length) : temp;
     }
     secretWord = words[i];
+    console.log(secretWord);
+    document.getElementById("spec-modal").style.display = "none";
 }
 
 function makeAGuess(){
@@ -94,4 +110,54 @@ function cycleColors(element){
     }else{
         element.color = "";
     }
+}
+
+//Helper fxns
+
+function binarySearch(arr, target){
+    let l = 0;
+    let r = arr.length-1;
+    let m = Math.floor((l + r) / 2);
+    while (l < r){
+        if (target == arr[m]){
+            return m;
+        }
+        if (target < arr[m]){
+            r = m-1;
+        }else{
+            l = m+1;
+        }
+        m = Math.floor((l + r) / 2);
+    }
+    if (target == arr[l]){
+        return l;
+    }
+    return (target == arr[r]) ? r : -1;
+}
+
+function rand(min, max, includeMax = false){
+    if (includeMax){
+        return Math.floor(Math.random() * ((max - min) + 1)) + min;
+    }
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function setCookie(cname, cvalue, expire = 30){
+    let d = new Date();
+    d.setTime(d.getTime() + (expire * 1000 * 60 * 60 * 24));
+    document.cookie = (cname + "=" + cvalue + ";expires=" + d.toUTCString + ";path=/");
+}
+
+function getCookie(cname){
+    cname += "=";
+    let decoded = document.cookie.split(";");
+    for (let i in decoded){
+        while (decoded[i].charAt(0) == " "){
+            decoded[i] = decoded[i].substring(1);
+        }
+        if (decoded[i].indexOf(cname) == 0){
+            return decoded[i].substring(cname.length);
+        }
+    }
+    return "No cookie found";
 }
