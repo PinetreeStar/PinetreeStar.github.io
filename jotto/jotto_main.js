@@ -1,6 +1,12 @@
+//Abbreviations must be weeded out, find out how to include words like 'sells'
+
 const daysInMonth = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
 const dateObj = new Date();
 dateObj.setHours(dateObj.getUTCHours()-4);
+let dailyWord = (daysInMonth[dateObj.getMonth()] + dateObj.getDate()) - 190;
+if (dailyWord < 0){
+    dailyWord += 365;
+}
 let xhttp = new XMLHttpRequest();
 let words;
 let dailyWords;
@@ -9,22 +15,30 @@ let guessing = true;
 xhttp.onload = function() {
     words = this.responseText.split('\n');
     //Helper fxns are outside this "onload", anything requiring 'words' to have data must be inside
+
+    xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        dailyWords = this.responseText.split('\n');
+        if (dailyWords.length < 365){
+            for (let i = 2; i < 365; i ++){
+                dailyWords.push(rand(0, 10000, true).toString());
+            }
+            //306 is for May 11th
+            dailyWords[306] = '7934';
+        }
+        dailyWord = dailyWords[dailyWord];
+
+        //Check daily cookie
+        let tempCookie = getCookie("dailyData");
+        //TODO
+
+        //Reveal the modal once all words are loaded
+        document.getElementById("spec-modal").childNodes[1].style.display = "block";
+    }
+    xhttp.open("GET","daily_words.txt");
+    xhttp.send();
 }
 xhttp.open("GET","jotto_words.txt");
-xhttp.send();
-
-xhttp = new XMLHttpRequest();
-xhttp.onload = function() {
-    dailyWords = this.responseText.split('\n');
-    if (dailyWords.length < 365){
-        for (let i = 2; i < 365; i ++){
-            dailyWords.push(rand(0, 10000, true).toString());
-        }
-        //306 is for May 11th
-        dailyWords[306] = '7934';
-    }
-}
-xhttp.open("GET","daily_words.txt");
 xhttp.send();
 
 document.addEventListener("keypress", function(event) {
@@ -38,11 +52,7 @@ for (let i = 0; i < 26; i ++){
 }
 
 function chooseWord(type){
-    let i = (daysInMonth[dateObj.getMonth()] + dateObj.getDate()) - 190;
-    if (i < 0){
-        i += 365;
-    }
-    i = dailyWords[i];
+    i = dailyWord;
     if (type == "random"){
         let temp = rand(0, words.length);
         i = (temp == i) ? ((temp * 17) % words.length) : temp;
